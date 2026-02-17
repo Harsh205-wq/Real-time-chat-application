@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import authRoutes from "./routes/auth.route.js"
 import messageRoutes from "./routes/message.route.js"
 import path from "path"
+import connectDB from "./db/db.js"
 
 dotenv.config({
   path:"./.env"  // config dotenv before using process.env.Variable
@@ -27,6 +28,7 @@ if(process.env.NODE_ENV==="production"){
 
 }
 
- app.listen(PORT,()=>{
-    console.log(`Server is running on ${PORT}`)
-  })
+app.listen(PORT,()=>{
+  console.log("Server running on port:"+PORT)
+  connectDB()
+})
