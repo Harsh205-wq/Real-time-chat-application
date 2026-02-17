@@ -10,13 +10,15 @@ dotenv.config({
 })
 
 const app=express();
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 const _dirname=path.resolve();
 
 
 const PORT=process.env.PORT || 5000
 
 app.use("/api/auth",authRoutes)
-app.use("/api/auth",messageRoutes)
+// app.use("/api/auth",messageRoutes)
 
 // deployment
 if(process.env.NODE_ENV==="production"){
@@ -27,6 +29,9 @@ if(process.env.NODE_ENV==="production"){
 });
 
 }
+
+
+
 
 app.listen(PORT,()=>{
   console.log("Server running on port:"+PORT)
