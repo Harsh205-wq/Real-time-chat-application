@@ -4,14 +4,17 @@ import authRoutes from "./routes/auth.route.js"
 import messageRoutes from "./routes/message.route.js"
 import path from "path"
 import connectDB from "./db/db.js"
+import cookieParser from "cookie-parser"
 
 dotenv.config({
   path:"./.env"  // config dotenv before using process.env.Variable
 })
-
+// basic configuration
 const app=express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
+
 const _dirname=path.resolve();
 
 
