@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 import User from "../models/user.model.js"
-import "dotenv/config"
+import dotenv from "dotenv"
+dotenv.config()
 
 
 export const protectRoute=async(req,res,next)=>{
@@ -8,7 +9,7 @@ export const protectRoute=async(req,res,next)=>{
         const token=req.cookies.jwt
         if(!token) return res.status(401).json({message:"Unauthorized-No token provided"})
         
-        const decode=jwt.verify(token,process.env.WT_SECRET)
+        const decode=jwt.verify(token,process.env.JWT_SECRET)
         if(!decode) return res.status(401).json({message:"Unauthorized-No token provided-Invalid token"})
 
         const user=await User.findById(decode.userId).select("-password")
