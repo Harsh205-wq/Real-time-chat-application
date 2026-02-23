@@ -20,8 +20,9 @@ const _dirname=path.resolve();
 
 const PORT=process.env.PORT || 5000
 
+// Routes
 app.use("/api/auth",authRoutes)
-// app.use("/api/auth",messageRoutes)
+app.use("/api/message",messageRoutes)
 
 // deployment
 if(process.env.NODE_ENV==="production"){
