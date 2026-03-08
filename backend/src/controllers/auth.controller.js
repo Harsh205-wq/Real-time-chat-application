@@ -45,6 +45,11 @@ export const signup=async (req,res)=>{
      if(newUser){
          generateToken(newUser._id,res);
          await newUser.save();
+         try {
+            await sendWelcomeEmail(newUser.email,newUser.fullName,process.env.CLIENT_URL)
+         } catch (error) {
+            console.log("Failed to send welcome email",error)
+         }
 
          res.status(201).json({
             _id:newUser._id,
@@ -53,11 +58,6 @@ export const signup=async (req,res)=>{
             email:newUser.email,
             profilePic:newUser.profilePic,
          });
-         try {
-            await sendWelcomeEmail(savedUser.email,savedUser.fullName,process.env.CLIENT_URL)
-         } catch (error) {
-            
-         }
      }
      else{
         res.status(400).json({message:"Invalid user data"})
